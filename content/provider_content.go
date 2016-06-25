@@ -28,6 +28,25 @@ func Provider() terraform.ResourceProvider {
                 Exists: contentByUrlExists,
             },
 
+            "content_dir": {
+                Schema: map[string]*schema.Schema{
+                    "path": {
+                        Type: schema.TypeString,
+                        Required: true,
+                        ForceNew: true,
+                    },
+                    "dir": {
+                        Type: schema.TypeString,
+                        Computed: true,
+                    },
+                },
+                Create: createContentDir,
+                Read:   readContentDir,
+                Update: nil,
+                Delete: deleteContentDir,
+                Exists: contentDirExists,
+            },
+
             "content_file": {
                 Schema: map[string]*schema.Schema{
                     "path": {

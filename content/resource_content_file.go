@@ -53,12 +53,12 @@ func deleteContentFile(resourceData *schema.ResourceData, _ interface{}) error {
 }
 
 func contentFileExists(resourceData *schema.ResourceData, _ interface{}) (bool, error) {
-    _, err := os.Stat(resourceData.Get("path").(string))
+    info, err := os.Stat(resourceData.Get("path").(string))
     if err != nil && os.IsNotExist(err) {
         return false, nil
     }
 
-    return err == nil, err
+    return err == nil && !info.IsDir(), err
 }
 
 func _saveContentFile(resourceData *schema.ResourceData) error {
