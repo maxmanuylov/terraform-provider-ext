@@ -56,7 +56,15 @@ func contentByUrlExists(resourceData *schema.ResourceData, _ interface{}) (bool,
 func _fetchContentByUrl(resourceData *schema.ResourceData) error {
     url := resourceData.Get("url").(string)
 
-    response, err := http.Get(url)
+    request, err := http.NewRequest("GET", url, nil)
+    if err != nil {
+        return err
+    }
+
+    request.Header.Add("User-Agent", "curl/7.43.0")
+    request.Header.Add("Accept", "*/*")
+
+    response, err := http.DefaultClient.Do(request)
     if err != nil {
         return err
     }
