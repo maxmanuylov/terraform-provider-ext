@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v1.0-alpha.2"
+VERSION="v1.0-beta.1"
 
 rm -rf bin
 
