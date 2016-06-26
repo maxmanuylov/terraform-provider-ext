@@ -14,11 +14,13 @@ resource "content_by_url" "readme" {
 
 resource "content_dir" "readme_storage" {
   path = "${path.root}/readme_storage"
+  permissions = "777"
 }
 
 resource "content_file" "readme" {
   path = "${content_dir.readme_storage.dir}/README.md"
   content = "${content_by_url.readme.content}"
+  permissions = "644"
 }
 ```
 - Run:
@@ -45,6 +47,9 @@ Manages (creates/removes/recreates) the local directory by the specified path. A
 ### Mandatory Parameters
 - `path` - local directory path
 
+### Optional Parameters
+- `permissions` - string with octal directory permissions (e.g. "644")
+
 ## Computed Parameters
 - `dir` - equal to `path` but is set _after_ the directory is created (so you can depend on this resource and be sure the directory already exists by the time you use it)
 
@@ -55,6 +60,9 @@ Saves the specified content to the local file.
 ### Mandatory Parameters
 - `path` - local file path
 - `content` - content to save
+
+### Optional Parameters
+- `permissions` - string with octal file permissions (e.g. "644")
 
 ## Computed Parameters
 - `file` - equal to `path` but is set _after_ the file is written (so you can depend on this resource and be sure the file already exists by the time you use it)
