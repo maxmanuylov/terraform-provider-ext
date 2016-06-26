@@ -30,7 +30,7 @@ func readContentFile(resourceData *schema.ResourceData, _ interface{}) error {
 }
 
 func updateContentFile(resourceData *schema.ResourceData, _ interface{}) error {
-    if !resourceData.HasChange("content") {
+    if !resourceData.HasChange("content") && !resourceData.HasChange("permissions") {
         return nil
     }
 
@@ -64,6 +64,7 @@ func contentFileExists(resourceData *schema.ResourceData, _ interface{}) (bool, 
 func _saveContentFile(resourceData *schema.ResourceData) error {
     path := resourceData.Get("path").(string)
     content := resourceData.Get("content").(string)
+    permissionsStr := resourceData.Get("permissions").(string)
 
     file, err := os.Create(path)
     if err != nil {
@@ -78,6 +79,17 @@ func _saveContentFile(resourceData *schema.ResourceData) error {
 
     if err = file.Sync(); err != nil {
         return err
+    }
+
+    if permissionsStr != "" {
+        permissions, err := _toNumberPermissions(permissionsStr)
+        if err != nil {
+            return err
+        }
+
+        if err := os.Chmod(path, permissions); err != nil {
+            return err
+        }
     }
 
     resourceData.Set("file", path)

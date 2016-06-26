@@ -33,6 +33,18 @@ func readContentDir(resourceData *schema.ResourceData, _ interface{}) error {
     return nil
 }
 
+func updateContentDir(resourceData *schema.ResourceData, _ interface{}) error {
+    if !resourceData.HasChange("permissions") {
+        return nil
+    }
+
+    if err := _createContentDir(resourceData); err != nil {
+        return err
+    }
+
+    return nil
+}
+
 func deleteContentDir(resourceData *schema.ResourceData, _ interface{}) error {
     if err := _deleteContentDir(resourceData); err != nil {
         return err
@@ -66,9 +78,27 @@ func _deleteContentDir(resourceData *schema.ResourceData) error {
 
 func _createContentDir(resourceData *schema.ResourceData) error {
     path := resourceData.Get("path").(string)
+    permissionsStr := resourceData.Get("permissions").(string)
 
-    if err := os.MkdirAll(path, 0777); err != nil {
+    var permissions os.FileMode
+    if permissionsStr == "" {
+        permissions = 0777
+    } else {
+        var err error
+        permissions, err = _toNumberPermissions(permissionsStr)
+        if err != nil {
+            return err
+        }
+    }
+
+    if err := os.MkdirAll(path, permissions); err != nil {
         return err
+    }
+
+    if permissionsStr != "" {
+        if err := os.Chmod(path, permissions); err != nil {
+            return err
+        }
     }
 
     resourceData.Set("dir", path)

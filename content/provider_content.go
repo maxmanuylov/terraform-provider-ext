@@ -35,6 +35,10 @@ func Provider() terraform.ResourceProvider {
                         Required: true,
                         ForceNew: true,
                     },
+                    "permissions": {
+                        Type: schema.TypeString,
+                        Optional: true,
+                    },
                     "dir": {
                         Type: schema.TypeString,
                         Computed: true,
@@ -42,7 +46,7 @@ func Provider() terraform.ResourceProvider {
                 },
                 Create: createContentDir,
                 Read:   readContentDir,
-                Update: nil,
+                Update: updateContentDir,
                 Delete: deleteContentDir,
                 Exists: contentDirExists,
             },
@@ -57,6 +61,10 @@ func Provider() terraform.ResourceProvider {
                     "content": {
                         Type: schema.TypeString,
                         Required: true,
+                    },
+                    "permissions": {
+                        Type: schema.TypeString,
+                        Optional: true,
                     },
                     "file": {
                         Type: schema.TypeString,
