@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="v1.0-beta.1"
+VERSION="v1.0-beta.2"
 
 rm -rf bin
 
@@ -11,3 +11,5 @@ GOOS=windows GOARCH=amd64 go build -o bin/windows/terraform-provider-content.exe
 tar czf bin/terraform-provider-content-$VERSION-macos.tar.gz --directory=bin/macos terraform-provider-content
 tar czf bin/terraform-provider-content-$VERSION-linux.tar.gz --directory=bin/linux terraform-provider-content
 zip     bin/terraform-provider-content-$VERSION-windows.zip -j bin/windows/terraform-provider-content.exe
+
+go run schema/schema.go content bin
