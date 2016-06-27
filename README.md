@@ -1,6 +1,6 @@
 # Terraform Content Provider
 
-This is a plugin for HashiCorp [Terraform](https://terraform.io), which helps fetching some content from a remote URL and save it (or another content) locally to a file.
+This is a plugin for HashiCorp [Terraform](https://terraform.io), which helps fetching some content from a remote URL, saving it (or another content) locally to a file, reusing variables with interpolated values.
 
 ## Usage
 
@@ -12,8 +12,12 @@ resource "content_by_url" "readme" {
   url = "https://raw.githubusercontent.com/maxmanuylov/terraform-provider-content/master/README.md"
 }
 
+resource "content_var" "readme_storage_path" {
+  value = "${path.root}/readme_storage"
+}
+
 resource "content_dir" "readme_storage" {
-  path = "${path.root}/readme_storage"
+  path = "${content_var.readme_storage_path.value}"
   permissions = "777"
 }
 
@@ -37,7 +41,7 @@ Fetches content from the specified URL and provides it as a computed attribute.
 ### Mandatory Parameters
 - `url` - content URL to fetch
 
-## Computed Parameters
+### Computed Parameters
 - `content` - fetched content
 
 ## The "content_dir" resource type
@@ -50,7 +54,7 @@ Manages (creates/removes/recreates) the local directory by the specified path. A
 ### Optional Parameters
 - `permissions` - string with octal directory permissions (e.g. "644")
 
-## Computed Parameters
+### Computed Parameters
 - `dir` - equal to `path` but is set _after_ the directory is created (so you can depend on this resource and be sure the directory already exists by the time you use it)
 
 ## The "content_file" resource type
@@ -64,5 +68,12 @@ Saves the specified content to the local file.
 ### Optional Parameters
 - `permissions` - string with octal file permissions (e.g. "644")
 
-## Computed Parameters
+### Computed Parameters
 - `file` - equal to `path` but is set _after_ the file is written (so you can depend on this resource and be sure the file already exists by the time you use it)
+
+## The "content_var" resource type
+
+Provides simple named variable. Unlike the built-in Terraform variables these variables can have interpolations in its values.
+
+### Mandatory Parameters
+- `value` - variable value

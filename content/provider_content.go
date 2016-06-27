@@ -78,6 +78,20 @@ func Provider() terraform.ResourceProvider {
                 Exists: contentFileExists,
             },
 
+            "content_var": {
+                Schema: map[string]*schema.Schema{
+                    "value": {
+                        Type: schema.TypeString,
+                        Required: true,
+                    },
+                },
+                Create: createContentVar,
+                Read:   readContentVar,
+                Update: updateContentVar,
+                Delete: deleteContentVar,
+                Exists: contentVarExists,
+            },
+
         },
     }
 }
