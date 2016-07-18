@@ -1,8 +1,8 @@
 package content
 
 import (
+    "github.com/hashicorp/go-uuid"
     "github.com/hashicorp/terraform/helper/schema"
-    "github.com/hashicorp/consul/vendor/github.com/hashicorp/go-uuid"
 )
 
 func createContentVar(resourceData *schema.ResourceData, _ interface{}) error {

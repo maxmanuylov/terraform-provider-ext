@@ -1,10 +1,10 @@
 package content
 
 import (
+    "github.com/hashicorp/go-uuid"
     "github.com/hashicorp/terraform/helper/schema"
     "net/http"
     "io/ioutil"
-    "github.com/hashicorp/consul/vendor/github.com/hashicorp/go-uuid"
 )
 
 func createContentByUrl(resourceData *schema.ResourceData, _ interface{}) error {

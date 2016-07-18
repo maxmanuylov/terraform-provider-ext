@@ -4,6 +4,8 @@ VERSION="v1.0-beta.2"
 
 rm -rf bin
 
+export GO15VENDOREXPERIMENT=1
+
 GOOS=darwin  GOARCH=amd64 go build -o bin/macos/terraform-provider-content
 GOOS=linux   GOARCH=amd64 go build -o bin/linux/terraform-provider-content
 GOOS=windows GOARCH=amd64 go build -o bin/windows/terraform-provider-content.exe
