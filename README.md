@@ -26,6 +26,14 @@ resource "content_file" "readme" {
   content = "${content_by_url.readme.content}"
   permissions = "644"
 }
+
+resource "content_command" "reconfigure" {
+  trigger = "${content_var.readme_storage_path.value}"
+
+  provisioner "local-exec" {
+    command = "<Some command>"
+  }
+}
 ```
 - Run:
 ```
@@ -77,3 +85,10 @@ Provides simple named variable. Unlike the built-in Terraform variables these va
 
 ### Mandatory Parameters
 - `value` - variable value
+
+## The "content_command" resource type
+
+Defines a resource that is got recreated every time the value of the `trigger` field changes. This is a convenient way of calling some provisioner on every `trigger` field change.
+
+### Mandatory Parameters
+- `trigger` - the value to monitor for changes

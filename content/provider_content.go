@@ -92,6 +92,20 @@ func Provider() terraform.ResourceProvider {
                 Exists: contentVarExists,
             },
 
+            "content_command": {
+                Schema: map[string]*schema.Schema{
+                    "trigger": {
+                        Type: schema.TypeString,
+                        Required: true,
+                        ForceNew: true,
+                    },
+                },
+                Create: createContentCommand,
+                Read:   readContentCommand,
+                Delete: deleteContentCommand,
+                Exists: contentCommandExists,
+            },
+
         },
     }
 }
