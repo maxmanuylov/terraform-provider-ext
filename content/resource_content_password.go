@@ -17,7 +17,7 @@ func createContentPassword(resourceData *schema.ResourceData, _ interface{}) err
     resourceData.SetId(id)
 
     strength := resourceData.Get("strength").(int)
-    length := math.Ceil(float64(strength) / math.Log2(94))
+    length := int(math.Ceil(float64(strength) / math.Log2(94)))
 
     password := make([]byte, length)
 
