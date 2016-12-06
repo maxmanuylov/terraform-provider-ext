@@ -94,7 +94,7 @@ func Provider() terraform.ResourceProvider {
 
             "content_password": {
                 Schema: map[string]*schema.Schema{
-                    "length": {
+                    "strength": {
                         Type: schema.TypeInt,
                         Required: true,
                         ForceNew: true,

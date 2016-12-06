@@ -4,6 +4,7 @@ import (
     "crypto/rand"
     "github.com/hashicorp/go-uuid"
     "github.com/hashicorp/terraform/helper/schema"
+    "math"
     "math/big"
 )
 
@@ -15,7 +16,10 @@ func createContentPassword(resourceData *schema.ResourceData, _ interface{}) err
 
     resourceData.SetId(id)
 
-    password := make([]byte, resourceData.Get("length").(int))
+    strength := resourceData.Get("strength").(int)
+    length := math.Ceil(float64(strength) / math.Log2(94))
+
+    password := make([]byte, length)
 
     big94 := big.NewInt(94)
     for i := range password {
