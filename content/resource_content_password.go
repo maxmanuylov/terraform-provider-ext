@@ -39,10 +39,6 @@ func readContentPassword(_ *schema.ResourceData, _ interface{}) error {
     return nil
 }
 
-func updateContentPassword(_ *schema.ResourceData, _ interface{}) error {
-    return nil
-}
-
 func deleteContentPassword(resourceData *schema.ResourceData, _ interface{}) error {
     resourceData.SetId("")
 

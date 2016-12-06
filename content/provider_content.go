@@ -106,7 +106,6 @@ func Provider() terraform.ResourceProvider {
                 },
                 Create: createContentPassword,
                 Read:   readContentPassword,
-                Update: updateContentPassword,
                 Delete: deleteContentPassword,
                 Exists: contentPasswordExists,
             },
