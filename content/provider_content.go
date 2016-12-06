@@ -92,6 +92,25 @@ func Provider() terraform.ResourceProvider {
                 Exists: contentVarExists,
             },
 
+            "content_password": {
+                Schema: map[string]*schema.Schema{
+                    "length": {
+                        Type: schema.TypeInt,
+                        Required: true,
+                        ForceNew: true,
+                    },
+                    "value": {
+                        Type: schema.TypeString,
+                        Computed: true,
+                    },
+                },
+                Create: createContentPassword,
+                Read:   readContentPassword,
+                Update: updateContentPassword,
+                Delete: deleteContentPassword,
+                Exists: contentPasswordExists,
+            },
+
             "content_command": {
                 Schema: map[string]*schema.Schema{
                     "trigger": {
