@@ -92,22 +92,17 @@ func Provider() terraform.ResourceProvider {
                 Exists: contentVarExists,
             },
 
-            "content_password": {
+            "content_ceph_key": {
                 Schema: map[string]*schema.Schema{
-                    "strength": {
-                        Type: schema.TypeInt,
-                        Required: true,
-                        ForceNew: true,
-                    },
                     "value": {
                         Type: schema.TypeString,
                         Computed: true,
                     },
                 },
-                Create: createContentPassword,
-                Read:   readContentPassword,
-                Delete: deleteContentPassword,
-                Exists: contentPasswordExists,
+                Create: createContentCephKey,
+                Read:   readContentCephKey,
+                Delete: deleteContentCephKey,
+                Exists: contentCephKeyExists,
             },
 
             "content_command": {
