@@ -1,4 +1,4 @@
-package content
+package ext
 
 import (
     "github.com/hashicorp/go-uuid"

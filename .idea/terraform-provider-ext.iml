@@ -8,6 +8,6 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="GOPATH &lt;terraform-provider-content&gt;" level="project" />
+    <orderEntry type="library" name="GOPATH &lt;terraform-provider-ext&gt;" level="project" />
   </component>
 </module>
