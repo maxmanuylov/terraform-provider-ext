@@ -7,13 +7,13 @@ import (
     "net/http"
 )
 
-func createUrlContent(resourceData *schema.ResourceData, _ interface{}) error {
+func createRemote(resourceData *schema.ResourceData, _ interface{}) error {
     id, err := uuid.GenerateUUID()
     if err != nil {
         return err
     }
 
-    if err = _fetchUrlContent(resourceData); err != nil {
+    if err = _fetchRemote(resourceData); err != nil {
         return err
     }
 
@@ -22,26 +22,26 @@ func createUrlContent(resourceData *schema.ResourceData, _ interface{}) error {
     return nil
 }
 
-func readUrlContent(_ *schema.ResourceData, _ interface{}) error {
+func readRemote(_ *schema.ResourceData, _ interface{}) error {
     return nil
 }
 
-func updateUrlContent(resourceData *schema.ResourceData, _ interface{}) error {
+func updateRemote(resourceData *schema.ResourceData, _ interface{}) error {
     if resourceData.HasChange("url") {
-        return _fetchUrlContent(resourceData)
+        return _fetchRemote(resourceData)
     }
 
     return nil
 }
 
-func deleteUrlContent(resourceData *schema.ResourceData, _ interface{}) error {
+func deleteRemote(resourceData *schema.ResourceData, _ interface{}) error {
     resourceData.SetId("")
     resourceData.Set("content", "")
 
     return nil
 }
 
-func _fetchUrlContent(resourceData *schema.ResourceData) error {
+func _fetchRemote(resourceData *schema.ResourceData) error {
     url := resourceData.Get("url").(string)
 
     request, err := http.NewRequest("GET", url, nil)

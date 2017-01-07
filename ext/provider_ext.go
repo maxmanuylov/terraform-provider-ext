@@ -72,21 +72,21 @@ func Provider() terraform.ResourceProvider {
                 Delete: deleteLocalFile,
             },
 
-            "ext_url_content": {
-                Schema: getUrlContentSchema(),
-                Create: createUrlContent,
-                Read:   readUrlContent,
-                Update: updateUrlContent,
-                Delete: deleteUrlContent,
+            "ext_remote": {
+                Schema: getRemoteSchema(),
+                Create: createRemote,
+                Read:   readRemote,
+                Update: updateRemote,
+                Delete: deleteRemote,
             },
 
         },
 
         DataSourcesMap: map[string]*schema.Resource{
 
-            "ext_url_content": {
-                Schema: getUrlContentSchema(),
-                Read:   createUrlContent,
+            "ext_remote": {
+                Schema: getRemoteSchema(),
+                Read:   createRemote,
             },
 
             "ext_var": {
@@ -114,7 +114,7 @@ func Provider() terraform.ResourceProvider {
     }
 }
 
-func getUrlContentSchema() map[string]*schema.Schema {
+func getRemoteSchema() map[string]*schema.Schema {
     return map[string]*schema.Schema{
         "url": {
             Type: schema.TypeString,
