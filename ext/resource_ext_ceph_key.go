@@ -9,13 +9,12 @@ import (
     "time"
 )
 
-func createContentCephKey(resourceData *schema.ResourceData, _ interface{}) error {
+func createCephKey(resourceData *schema.ResourceData, _ interface{}) error {
     id, err := uuid.GenerateUUID()
     if err != nil {
         return err
     }
 
-    resourceData.SetId(id)
     created := time.Now()
 
     key := make([]byte, 44)
@@ -37,6 +36,7 @@ func createContentCephKey(resourceData *schema.ResourceData, _ interface{}) erro
     }
 
     resourceData.Set("value", base64.StdEncoding.EncodeToString(key))
+    resourceData.SetId(id)
 
     return nil
 }
@@ -47,16 +47,13 @@ func writeValue(buf []byte, value int) {
     }
 }
 
-func readContentCephKey(_ *schema.ResourceData, _ interface{}) error {
+func readCephKey(_ *schema.ResourceData, _ interface{}) error {
     return nil
 }
 
-func deleteContentCephKey(resourceData *schema.ResourceData, _ interface{}) error {
+func deleteCephKey(resourceData *schema.ResourceData, _ interface{}) error {
     resourceData.SetId("")
+    resourceData.Set("value", "")
 
     return nil
-}
-
-func contentCephKeyExists(resourceData *schema.ResourceData, _ interface{}) (bool, error) {
-    return resourceData.Id() != "", nil
 }

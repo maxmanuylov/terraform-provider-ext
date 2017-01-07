@@ -10,25 +10,20 @@ func Provider() terraform.ResourceProvider {
         Schema: map[string]*schema.Schema{},
         ResourcesMap: map[string]*schema.Resource{
 
-            "content_by_url": {
+            "ext_ceph_key": {
                 Schema: map[string]*schema.Schema{
-                    "url": {
-                        Type: schema.TypeString,
-                        Required: true,
-                    },
-                    "content": {
+                    "value": {
                         Type: schema.TypeString,
                         Computed: true,
+                        Sensitive: true,
                     },
                 },
-                Create: createContentByUrl,
-                Read:   readContentByUrl,
-                Update: updateContentByUrl,
-                Delete: deleteContentByUrl,
-                Exists: contentByUrlExists,
+                Create: createCephKey,
+                Read:   readCephKey,
+                Delete: deleteCephKey,
             },
 
-            "content_dir": {
+            "ext_local_dir": {
                 Schema: map[string]*schema.Schema{
                     "path": {
                         Type: schema.TypeString,
@@ -44,14 +39,13 @@ func Provider() terraform.ResourceProvider {
                         Computed: true,
                     },
                 },
-                Create: createContentDir,
-                Read:   readContentDir,
-                Update: updateContentDir,
-                Delete: deleteContentDir,
-                Exists: contentDirExists,
+                Create: createLocalDir,
+                Read:   readLocalDir,
+                Update: updateLocalDir,
+                Delete: deleteLocalDir,
             },
 
-            "content_file": {
+            "ext_local_file": {
                 Schema: map[string]*schema.Schema{
                     "path": {
                         Type: schema.TypeString,
@@ -61,6 +55,7 @@ func Provider() terraform.ResourceProvider {
                     "content": {
                         Type: schema.TypeString,
                         Required: true,
+                        Sensitive: true,
                     },
                     "permissions": {
                         Type: schema.TypeString,
@@ -71,52 +66,53 @@ func Provider() terraform.ResourceProvider {
                         Computed: true,
                     },
                 },
-                Create: createContentFile,
-                Read:   readContentFile,
-                Update: updateContentFile,
-                Delete: deleteContentFile,
-                Exists: contentFileExists,
+                Create: createLocalFile,
+                Read:   readLocalFile,
+                Update: updateLocalFile,
+                Delete: deleteLocalFile,
             },
 
-            "content_var": {
+            "ext_url_content": {
                 Schema: map[string]*schema.Schema{
-                    "value": {
+                    "url": {
                         Type: schema.TypeString,
                         Required: true,
                     },
-                },
-                Create: createContentVar,
-                Read:   readContentVar,
-                Update: updateContentVar,
-                Delete: deleteContentVar,
-                Exists: contentVarExists,
-            },
-
-            "content_ceph_key": {
-                Schema: map[string]*schema.Schema{
-                    "value": {
+                    "content": {
                         Type: schema.TypeString,
                         Computed: true,
+                        Sensitive: true,
                     },
                 },
-                Create: createContentCephKey,
-                Read:   readContentCephKey,
-                Delete: deleteContentCephKey,
-                Exists: contentCephKeyExists,
+                Create: createUrlContent,
+                Read:   readUrlContent,
+                Update: updateUrlContent,
+                Delete: deleteUrlContent,
             },
 
-            "content_command": {
+        },
+
+        DataSourcesMap: map[string]*schema.Resource{
+
+            "ext_var": {
                 Schema: map[string]*schema.Schema{
-                    "trigger": {
+                    "value": {
                         Type: schema.TypeString,
                         Required: true,
-                        ForceNew: true,
                     },
                 },
-                Create: createContentCommand,
-                Read:   readContentCommand,
-                Delete: deleteContentCommand,
-                Exists: contentCommandExists,
+                Read:   readExtVar,
+            },
+
+            "ext_svar": {
+                Schema: map[string]*schema.Schema{
+                    "value": {
+                        Type: schema.TypeString,
+                        Required: true,
+                        Sensitive: true,
+                    },
+                },
+                Read:   readExtVar,
             },
 
         },

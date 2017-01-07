@@ -3,57 +3,45 @@ package ext
 import (
     "github.com/hashicorp/go-uuid"
     "github.com/hashicorp/terraform/helper/schema"
-    "net/http"
     "io/ioutil"
+    "net/http"
 )
 
-func createContentByUrl(resourceData *schema.ResourceData, _ interface{}) error {
+func createUrlContent(resourceData *schema.ResourceData, _ interface{}) error {
     id, err := uuid.GenerateUUID()
     if err != nil {
         return err
     }
 
+    if err = _fetchUrlContent(resourceData); err != nil {
+        return err
+    }
+
     resourceData.SetId(id)
 
-    if err = _fetchContentByUrl(resourceData); err != nil {
-        return err
+    return nil
+}
+
+func readUrlContent(_ *schema.ResourceData, _ interface{}) error {
+    return nil
+}
+
+func updateUrlContent(resourceData *schema.ResourceData, _ interface{}) error {
+    if resourceData.HasChange("url") {
+        return _fetchUrlContent(resourceData)
     }
 
     return nil
 }
 
-func readContentByUrl(resourceData *schema.ResourceData, _ interface{}) error {
-    if err := _fetchContentByUrl(resourceData); err != nil {
-        return err
-    }
-
-    return nil
-}
-
-func updateContentByUrl(resourceData *schema.ResourceData, _ interface{}) error {
-    if !resourceData.HasChange("url") {
-        return nil
-    }
-
-    if err := _fetchContentByUrl(resourceData); err != nil {
-        return err
-    }
-
-    return nil
-}
-
-func deleteContentByUrl(resourceData *schema.ResourceData, _ interface{}) error {
+func deleteUrlContent(resourceData *schema.ResourceData, _ interface{}) error {
     resourceData.SetId("")
     resourceData.Set("content", "")
 
     return nil
 }
 
-func contentByUrlExists(resourceData *schema.ResourceData, _ interface{}) (bool, error) {
-    return resourceData.Get("content").(string) != "", nil
-}
-
-func _fetchContentByUrl(resourceData *schema.ResourceData) error {
+func _fetchUrlContent(resourceData *schema.ResourceData) error {
     url := resourceData.Get("url").(string)
 
     request, err := http.NewRequest("GET", url, nil)
