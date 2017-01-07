@@ -73,17 +73,7 @@ func Provider() terraform.ResourceProvider {
             },
 
             "ext_url_content": {
-                Schema: map[string]*schema.Schema{
-                    "url": {
-                        Type: schema.TypeString,
-                        Required: true,
-                    },
-                    "content": {
-                        Type: schema.TypeString,
-                        Computed: true,
-                        Sensitive: true,
-                    },
-                },
+                Schema: getUrlContentSchema(),
                 Create: createUrlContent,
                 Read:   readUrlContent,
                 Update: updateUrlContent,
@@ -93,6 +83,11 @@ func Provider() terraform.ResourceProvider {
         },
 
         DataSourcesMap: map[string]*schema.Resource{
+
+            "ext_url_content": {
+                Schema: getUrlContentSchema(),
+                Read:   createUrlContent,
+            },
 
             "ext_var": {
                 Schema: map[string]*schema.Schema{
@@ -115,6 +110,20 @@ func Provider() terraform.ResourceProvider {
                 Read:   readExtVar,
             },
 
+        },
+    }
+}
+
+func getUrlContentSchema() map[string]*schema.Schema {
+    return map[string]*schema.Schema{
+        "url": {
+            Type: schema.TypeString,
+            Required: true,
+        },
+        "content": {
+            Type: schema.TypeString,
+            Computed: true,
+            Sensitive: true,
         },
     }
 }
