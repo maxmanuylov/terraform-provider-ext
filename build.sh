@@ -5,10 +5,11 @@ VERSION="v1.4"
 rm -rf bin
 
 export GO15VENDOREXPERIMENT=1
+export GOARCH=amd64
 
-GOOS=darwin  GOARCH=amd64 go build -o bin/macos/terraform-provider-ext
-GOOS=linux   GOARCH=amd64 go build -o bin/linux/terraform-provider-ext
-GOOS=windows GOARCH=amd64 go build -o bin/windows/terraform-provider-ext.exe
+GOOS=darwin  go build -o bin/macos/terraform-provider-ext
+GOOS=linux   go build -o bin/linux/terraform-provider-ext
+GOOS=windows go build -o bin/windows/terraform-provider-ext.exe
 
 tar czf bin/terraform-provider-ext-$VERSION-macos.tar.gz --directory=bin/macos terraform-provider-ext
 tar czf bin/terraform-provider-ext-$VERSION-linux.tar.gz --directory=bin/linux terraform-provider-ext
