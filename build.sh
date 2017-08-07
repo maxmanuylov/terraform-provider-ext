@@ -2,6 +2,8 @@
 
 VERSION="v1.4"
 
+govendor sync
+
 rm -rf bin
 
 export GO15VENDOREXPERIMENT=1
