@@ -80,6 +80,50 @@ func Provider() terraform.ResourceProvider {
                 Delete: deleteRemote,
             },
 
+            "ext_cached_var": {
+                Schema: map[string]*schema.Schema{
+                    "value": {
+                        Type: schema.TypeString,
+                        Required: true,
+                    },
+                    "cached": {
+                        Type: schema.TypeString,
+                        Computed: true,
+                    },
+                    "trigger": {
+                        Type: schema.TypeString,
+                        Optional: true,
+                    },
+                },
+                Create: createCachedVar,
+                Read:   readCachedVar,
+                Update: updateCachedVar,
+                Delete: deleteCachedVar,
+            },
+
+            "ext_cached_svar": {
+                Schema: map[string]*schema.Schema{
+                    "value": {
+                        Type: schema.TypeString,
+                        Required: true,
+                        Sensitive: true,
+                    },
+                    "cached": {
+                        Type: schema.TypeString,
+                        Computed: true,
+                        Sensitive: true,
+                    },
+                    "trigger": {
+                        Type: schema.TypeString,
+                        Optional: true,
+                    },
+                },
+                Create: createCachedVar,
+                Read:   readCachedVar,
+                Update: updateCachedVar,
+                Delete: deleteCachedVar,
+            },
+
         },
 
         DataSourcesMap: map[string]*schema.Resource{
