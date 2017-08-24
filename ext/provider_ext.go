@@ -133,6 +133,27 @@ func Provider() terraform.ResourceProvider {
                 Read:   createRemote,
             },
 
+            "ext_ip": {
+                Schema: map[string]*schema.Schema{
+                    "values": {
+                        Type: schema.TypeList,
+                        Required: true,
+                        Elem: &schema.Schema{
+                            Type: schema.TypeString,
+                        },
+                    },
+                    "subnet_cidr": {
+                        Type: schema.TypeString,
+                        Required: true,
+                    },
+                    "value": {
+                        Type: schema.TypeString,
+                        Computed: true,
+                    },
+                },
+                Read:   readIP,
+            },
+
             "ext_var": {
                 Schema: map[string]*schema.Schema{
                     "value": {
