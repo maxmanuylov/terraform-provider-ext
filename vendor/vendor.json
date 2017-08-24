@@ -1855,12 +1855,12 @@
 			"revisionTime": "2017-08-03T00:17:40Z"
 		},
 		{
-			"checksumSHA1": "LkTbNcFG0gzhF54hMQXA2VcEggY=",
+			"checksumSHA1": "DUhpIJawv1eNnoECVe4ELMqwfeo=",
 			"path": "github.com/maxmanuylov/utils/intellij-hcl/terraform/provider-schema-generator",
-			"revision": "b265652aa752663a981bc2c5b7c779ffd34e5f97",
-			"revisionTime": "2017-08-07T15:40:43Z",
-			"version": "=v2",
-			"versionExact": "v2"
+			"revision": "c732df1d378e2f6351f96eebced3a1c90ecc31c2",
+			"revisionTime": "2017-08-11T15:57:37Z",
+			"version": "=v2.1",
+			"versionExact": "v2.1"
 		},
 		{
 			"checksumSHA1": "jXakiCRizt6jtyeGh+DeuA76Bh0=",
