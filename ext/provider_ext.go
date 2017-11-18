@@ -124,6 +124,18 @@ func Provider() terraform.ResourceProvider {
                 Delete: deleteCachedVar,
             },
 
+            "ext_uuid": {
+                Schema: map[string]*schema.Schema{
+                    "value": {
+                        Type:     schema.TypeString,
+                        Computed: true,
+                    },
+                },
+                Create: createUuid,
+                Read:   readUuid,
+                Delete: deleteUuid,
+            },
+
         },
 
         DataSourcesMap: map[string]*schema.Resource{
